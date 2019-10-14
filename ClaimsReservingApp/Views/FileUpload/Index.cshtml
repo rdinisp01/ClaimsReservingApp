@@ -1,0 +1,34 @@
+﻿
+@model List<string>
+
+@using (Html.BeginForm("Index",
+                  "FileUpload",
+                  FormMethod.Post,
+                  new { enctype = "multipart/form-data" }))
+{
+    @*<label for="file">Upload File</label>*@
+    <h2>Upload file</h2>
+    <br />
+    <input type="file" name="file" id="file" />
+    <br />
+
+    <input type="submit" value="Process Files" />
+    <br />
+    @ViewBag.Message
+    <br />
+
+    <h2>Processed Files</h2>
+    <table>
+        <tr>
+            <th>File Name</th>
+            <th>Link</th>
+        </tr>
+        @for (var i = 0; i<=Model.Count -1; i++)
+        {
+            <tr>
+                <td>@Model[i].ToString()</td>
+                <td>@Html.ActionLink("Download", "Download", new { FileName = @Model[i].ToString() })</td>
+            </tr>
+        }
+    </table>
+}
